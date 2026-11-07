@@ -1,0 +1,10 @@
+.ipynb_checkpoints/
+__pycache__/
+.venv/
+outputs/figures
+
+# CSV exports: keep only the clean dataframe and fixed split
+*.csv
+!/outputs/cleaned_german_credit.csv
+!/outputs/train.csv
+!/outputs/test.csv
