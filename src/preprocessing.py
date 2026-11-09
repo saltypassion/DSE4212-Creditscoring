@@ -1,6 +1,7 @@
 # Libraries
 import numpy as np
 import pandas as pd
+import warnings
 
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.compose import ColumnTransformer
@@ -8,6 +9,39 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+REQUIRED_COLUMNS = [
+    "credit_amount", "duration_months", "employment_since", "savings_account",
+    "checking_account", "existing_credits", "other_installment_plans",
+    "credit_history",
+]
+
+EXPECTED_LABELS = {
+    "employment_since": ["Unemployed", "<1 year"],
+    "savings_account": ["<100 DM"],
+    "checking_account": ["<0 DM"],
+    "other_installment_plans": ["No / none"],
+    "credit_history": [
+        "Past repayment delay",
+        "Critical account / other credits elsewhere",
+    ],
+}
+
+
+def check_inputs(X):
+    """Raise if required columns are missing; warn if an expected label is absent."""
+    missing_cols = [c for c in REQUIRED_COLUMNS + NUMERIC_RAW + CATEGORICAL_FEATURES
+                    if c not in X.columns]
+    if missing_cols:
+        raise KeyError(f"Columns missing from input data: {sorted(set(missing_cols))}")
+    for col, labels in EXPECTED_LABELS.items():
+        absent = [lab for lab in labels if lab not in set(X[col].dropna().unique())]
+        if absent:
+            warnings.warn(
+                f"Label(s) {absent} not found in column '{col}'. The engineered "
+                f"flags that use them will be all zeros. Observed labels: "
+                f"{sorted(map(str, X[col].dropna().unique()))}",
+                stacklevel=2,
+            )
 
 class FeatureEngineer(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
@@ -99,6 +133,14 @@ NUMERIC_FEATURES = [
     "log1p_duration_months",
     "log_monthly_principal_proxy",
     "log_loan_per_credit"
+]
+
+# Raw numerical features
+NUMERIC_RAW = [
+    "existing_credits", 
+    "people_liable", 
+    "credit_amount", 
+    "duration_months"
 ]
 
 # Categorical features
