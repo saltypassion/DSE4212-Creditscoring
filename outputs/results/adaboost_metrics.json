@@ -1,5 +1,5 @@
 {
-  "model": "AdaBoostClassifier (SAMME, decision-tree base)",
+  "model": "AdaBoostClassifier",
   "best_params": {
     "estimator__class_weight": null,
     "estimator__max_depth": 2,
