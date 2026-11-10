@@ -1,0 +1,77 @@
+{
+  "model": "RandomForestClassifier",
+  "best_params": {
+    "class_weight": "balanced_subsample",
+    "max_depth": 8,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1
+  },
+  "n_estimators": 500,
+  "cv_auc_mean": 0.7888392857142857,
+  "cv_auc_std": 0.037353376607907725,
+  "cv_train_auc_mean": 0.9909388950892858,
+  "test_auc_ci95": [
+    0.7326936668451485,
+    0.8696829998222152
+  ],
+  "fn_cost": 5,
+  "thresholds": {
+    "default": 0.5,
+    "f1_opt": 0.37885203050971195,
+    "cost_opt": 0.274216371770051
+  },
+  "results": {
+    "RF untuned (500 trees)": {
+      "threshold": 0.5,
+      "auc": 0.808154761904762,
+      "precision": 0.7435897435897436,
+      "recall": 0.48333333333333334,
+      "f1": 0.5858585858585859,
+      "accuracy": 0.795,
+      "cost": 165.0,
+      "tn": 130,
+      "fp": 10,
+      "fn": 31,
+      "tp": 29
+    },
+    "RF tuned @ 0.5": {
+      "threshold": 0.5,
+      "auc": 0.8026190476190477,
+      "precision": 0.631578947368421,
+      "recall": 0.6,
+      "f1": 0.6153846153846154,
+      "accuracy": 0.775,
+      "cost": 141.0,
+      "tn": 119,
+      "fp": 21,
+      "fn": 24,
+      "tp": 36
+    },
+    "RF tuned @ F1-optimal": {
+      "threshold": 0.37885203050971195,
+      "auc": 0.8026190476190477,
+      "precision": 0.5,
+      "recall": 0.7333333333333333,
+      "f1": 0.5945945945945946,
+      "accuracy": 0.7,
+      "cost": 124.0,
+      "tn": 96,
+      "fp": 44,
+      "fn": 16,
+      "tp": 44
+    },
+    "RF tuned @ cost-optimal": {
+      "threshold": 0.274216371770051,
+      "auc": 0.8026190476190477,
+      "precision": 0.4263565891472868,
+      "recall": 0.9166666666666666,
+      "f1": 0.582010582010582,
+      "accuracy": 0.605,
+      "cost": 99.0,
+      "tn": 66,
+      "fp": 74,
+      "fn": 5,
+      "tp": 55
+    }
+  }
+}
